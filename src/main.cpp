@@ -40,7 +40,7 @@ void loop() {
                 pixels[x][y] = Grain { 0, ColorFromHSV(hue, 0.4f, 0.85f) };
             }
         }
-        hue = (hue + 1) % 360;
+        //hue = (hue + 1) % 360;
         hue = 20 + rand() % 40;
     }
 
@@ -49,8 +49,23 @@ void loop() {
             Grain grain = pixels[x][y];
             if (grain.color.a == 0) continue;
             if (pixels[x][y + 1].color.a == 0) {
-                pixels[x][y].color.a = 0;
-                pixels[x][y + 1] = grain;
+                if (rand() % 2) {
+                    if (rand() % 10 == 0 && x < gridWidth - 1 && pixels[x + 1][y].color.a == 0) {
+                        pixels[x][y].color.a = 0;
+                        pixels[x + 1][y + 1] = grain;
+                    } else {
+                        pixels[x][y].color.a = 0;
+                        pixels[x][y + 1] = grain;
+                    }
+                } else {
+                    if (rand() % 10 == 0 && x > 0 && pixels[x - 1][y].color.a == 0) {
+                        pixels[x][y].color.a = 0;
+                        pixels[x - 1][y + 1] = grain;
+                    } else {
+                        pixels[x][y].color.a = 0;
+                        pixels[x][y + 1] = grain;
+                    }
+                }
             } else {
                 if (rand() % 2) {
                     if (x < gridWidth - 1 && pixels[x + 1][y + 1].color.a == 0) {
