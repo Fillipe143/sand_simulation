@@ -37,10 +37,11 @@ void loop() {
         int y = GetMouseY() / 8;
         if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
             if (pixels[x][y].color.a == 0) {
-                pixels[x][y] = Grain { 0, ColorFromHSV(hue, 1.0f, 1.0f) };
+                pixels[x][y] = Grain { 0, ColorFromHSV(hue, 0.4f, 0.85f) };
             }
         }
         hue = (hue + 1) % 360;
+        hue = 20 + rand() % 40;
     }
 
     for (int x = gridWidth - 1; x >= 0; x--) {
